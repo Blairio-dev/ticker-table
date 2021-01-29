@@ -1,0 +1,101 @@
+@import "./colours.scss";
+
+table {
+  border-spacing: 0;
+  text-align: left;
+  width: 100%;
+}
+
+caption {
+  padding: 0 16px 8px 0;
+  text-align: inherit;
+}
+
+thead {
+  background: $black;
+}
+
+tbody {
+  overflow: scroll;
+
+  tr {
+    &:hover {
+      box-shadow: 0 0 4px $boxShadow;
+      transform: scale(1.005);
+
+      td,
+      th {
+        border-color: $borderActive;
+      }
+    }
+  }
+}
+
+tr {
+  transition: 0.1s ease-out;
+}
+
+th,
+td {
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th {
+  &:hover {
+    button {
+      border-color: $borderActive;
+    }
+  }
+
+  button {
+    background: transparent;
+    border: 1px solid $border;
+    color: $textLight;
+    cursor: pointer;
+    font-size: inherit;
+    text-align: inherit;
+    width: 100%;
+
+    &:focus {
+      border-color: $borderActive;
+      outline: none;
+    }
+  }
+}
+
+td {
+  border: 1px solid $border;
+}
+
+td,
+button {
+  padding: 8px 16px;
+
+  @media (max-width: 960px) {
+    padding: 8px 8px;
+  }
+}
+
+.assetClass-Credit {
+  background-color: $green;
+}
+
+.assetClass-Equities {
+  background-color: $blue;
+}
+
+.assetClass-Macro {
+  background-color: $white;
+  color: $textDark;
+}
+
+.price-negative {
+  background-color: $negative;
+  color: $textLight;
+}
+
+.price-positive {
+  background-color: $positive;
+  color: $textLight;
+}
