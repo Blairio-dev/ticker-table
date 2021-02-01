@@ -1,46 +1,17 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 import "./Table.scss";
-import { isNumberPositive } from "../../utilities/functions";
+import {
+  isNumberPositive,
+  sortAlphabetically,
+  sortByAssetClass,
+  sortNumerically,
+} from "../../assets/functions";
+import { IDict, Instrument } from "../../assets/interfaces";
 
-const getPriceClassNameSuffix = (price) =>
+const getPriceClassNameSuffix = (price: number) =>
   isNumberPositive(price) ? "positive" : "negative";
 
-const headerNames = {
-  assetClass: "Asset Class",
-  price: "Price",
-  ticker: "Ticker",
-};
-
-const sortAlphabetically = (data) => [
-  ...data.sort(function (a, b) {
-    const x = a.ticker.toLowerCase();
-    const y = b.ticker.toLowerCase();
-    if (x < y) {
-      return -1;
-    }
-    if (x > y) {
-      return 1;
-    }
-    return 0;
-  }),
-];
-
-const sortNumerically = (data) => [
-  ...data.sort(function (a, b) {
-    return b.price - a.price;
-  }),
-];
-
-const sortByAssetClass = (data) => {
-  const creditAssets = data.filter((asset) => asset.assetClass === "Credit");
-  const equityAssets = data.filter((asset) => asset.assetClass === "Equities");
-  const macroAssets = data.filter((asset) => asset.assetClass === "Macro");
-
-  return equityAssets.concat(macroAssets).concat(creditAssets);
-};
-
-const onClickHandler = (key, data) => {
+const onClickHandler = (key: string, data: Instrument[]) => {
   switch (key) {
     case "ticker":
       return sortAlphabetically(data);
@@ -53,7 +24,17 @@ const onClickHandler = (key, data) => {
   }
 };
 
-const Table = ({ data }) => {
+const headerNames: IDict<string> = {
+  assetClass: "Asset Class",
+  price: "Price",
+  ticker: "Ticker",
+};
+
+interface TableProps {
+  data: Instrument[];
+}
+
+const Table = ({ data }: TableProps) => {
   const [sortedData, sortData] = useState(data);
   const keys = Object.keys(data[0]);
   return (
@@ -88,16 +69,6 @@ const Table = ({ data }) => {
       </tbody>
     </table>
   );
-};
-
-Table.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      ticker: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      assetClass: PropTypes.string.isRequired,
-    })
-  ),
 };
 
 export { Table };

@@ -1,5 +1,5 @@
 import "./App.css";
-import sampleData from "./data/sampleData.json";
+import sampleData from "./assets/sampleData.json";
 import { Table } from "./components/Table/Table";
 
 const App = () => (
