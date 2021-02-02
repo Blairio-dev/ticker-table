@@ -72,6 +72,11 @@ th {
     &:focus {
       border-color: $borderActive;
       outline: none;
+
+      svg {
+        fill: $borderActive;
+        transform: scale(1.075);
+      }
     }
   }
 }
