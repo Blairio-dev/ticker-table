@@ -7,6 +7,8 @@ import {
   sortNumerically,
 } from "../../assets/functions";
 import { IDict, Instrument } from "../../assets/interfaces";
+import { Inline } from "../../components";
+import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 
 const getPriceClassNameSuffix = (price: number) =>
   isNumberPositive(price) ? "positive" : "negative";
@@ -49,7 +51,7 @@ const Table = ({ data }: TableProps) => {
                   <button
                     onClick={() => sortData(onClickHandler(key, sortedData))}
                   >
-                    {headerNames[key]}
+                    <Inline nodes={[headerNames[key], <SortIcon />]} />
                   </button>
                 </th>
               )

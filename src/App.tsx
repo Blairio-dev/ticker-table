@@ -1,6 +1,6 @@
 import "./App.css";
 import sampleData from "./assets/sampleData.json";
-import { Table } from "./components/Table/Table";
+import { Table } from "./components";
 
 const App = () => (
   <div className="App">

@@ -45,6 +45,11 @@ th {
   &:hover {
     button {
       border-color: $borderActive;
+
+      svg {
+        fill: $borderActive;
+        transform: scale(1.075);
+      }
     }
   }
 
@@ -56,6 +61,13 @@ th {
     font-size: inherit;
     text-align: inherit;
     width: 100%;
+
+    svg {
+      fill: $white;
+      height: 24px;
+      transition: 0.1s ease-out;
+      width: 24px;
+    }
 
     &:focus {
       border-color: $borderActive;
