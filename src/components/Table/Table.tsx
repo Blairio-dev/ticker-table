@@ -6,7 +6,7 @@ import {
   sortByAssetClass,
   sortNumerically,
 } from "../../assets/functions";
-import { IDict, Instrument } from "../../assets/interfaces";
+import { headerNames, Instrument } from "../../assets/interfaces";
 import { Inline } from "../../components";
 import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 
@@ -24,12 +24,6 @@ const onClickHandler = (key: string, data: Instrument[]) => {
     default:
       return data;
   }
-};
-
-const headerNames: IDict<string> = {
-  assetClass: "Asset Class",
-  price: "Price",
-  ticker: "Ticker",
 };
 
 interface TableProps {
