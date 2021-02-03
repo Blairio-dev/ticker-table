@@ -7,6 +7,7 @@ table {
 }
 
 caption {
+  color: $textLight;
   padding: 0 16px 8px 0;
   text-align: inherit;
 }
@@ -19,6 +20,7 @@ tbody {
   overflow: scroll;
 
   tr {
+    transition: 0.1s ease-out;
     &:hover {
       box-shadow: 0 0 4px $boxShadow;
       transform: scale(1.005);
@@ -31,44 +33,59 @@ tbody {
   }
 }
 
-tr {
-  transition: 0.1s ease-out;
-}
-
 th,
 td {
   border-collapse: collapse;
   white-space: nowrap;
 }
 
-th {
-  &:hover {
-    button {
-      border-color: $borderActive;
+td,
+button {
+  border: 1px solid $border;
+  color: $textDark;
+  padding: 8px 16px;
 
-      svg {
-        fill: $borderActive;
-        transform: scale(1.075);
-      }
-    }
+  @media (max-width: 960px) {
+    padding: 4px 8px;
   }
+}
+
+th {
+  padding: 0;
 
   button {
     background: transparent;
-    border: 1px solid $border;
     color: $textLight;
     cursor: pointer;
     font-size: inherit;
+    margin: 0;
     text-align: inherit;
     width: 100%;
+
+    .icon-wrapper {
+      align-items: center;
+      display: flex;
+      transition: all 0.1s ease-out;
+    }
 
     svg {
       fill: $white;
       height: 24px;
-      transition: 0.1s ease-out;
+      margin-left: 8px;
       width: 24px;
+
+      @media (max-width: 960px) {
+        height: 20px;
+        width: 20px;
+      }
+
+      @media (max-width: 768px) {
+        height: 16px;
+        width: 16px;
+      }
     }
 
+    &:hover,
     &:focus {
       border-color: $borderActive;
       outline: none;
@@ -81,17 +98,10 @@ th {
   }
 }
 
-td {
-  border: 1px solid $border;
-}
-
-td,
-button {
-  padding: 8px 16px;
-
-  @media (max-width: 960px) {
-    padding: 8px 8px;
-  }
+.inline-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .assetClass-Credit {
@@ -104,15 +114,12 @@ button {
 
 .assetClass-Macro {
   background-color: $white;
-  color: $textDark;
 }
 
 .price-negative {
   background-color: $negative;
-  color: $textLight;
 }
 
 .price-positive {
   background-color: $positive;
-  color: $textLight;
 }

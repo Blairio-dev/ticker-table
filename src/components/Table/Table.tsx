@@ -7,7 +7,6 @@ import {
   sortNumerically,
 } from "../../assets/functions";
 import { headerNames, Instrument } from "../../assets/interfaces";
-import { Inline } from "../../components";
 import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 
 const getPriceClassNameSuffix = (price: number) =>
@@ -45,7 +44,10 @@ const Table = ({ data }: TableProps) => {
                   <button
                     onClick={() => sortData(onClickHandler(key, sortedData))}
                   >
-                    <Inline nodes={[headerNames[key], <SortIcon />]} />
+                    <div className="inline-wrapper">
+                      {headerNames[key]}
+                      <SortIcon />
+                    </div>
                   </button>
                 </th>
               )

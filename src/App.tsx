@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import sampleData from "./assets/sampleData.json";
 import { Table } from "./components";
 
