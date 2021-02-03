@@ -41,8 +41,9 @@ const DEFAULT_PROPS = {
   data,
 };
 
-// Arrange
 const wrapper = mount(<Table {...DEFAULT_PROPS} />);
+const headers = wrapper.find("th");
+const rows = wrapper.find("tbody").find("tr");
 
 describe("Table", () => {
   describe("Basic rendering and semantics", () => {
@@ -62,17 +63,14 @@ describe("Table", () => {
       expect(tbody).toHaveLength(1);
     });
     it("Only three columns", () => {
-      const headers = wrapper.find("th");
       expect(headers).toHaveLength(3);
     });
     it("Only data six rows", () => {
-      const rows = wrapper.find("tbody").find("tr");
       expect(rows).toHaveLength(6);
     });
   });
   describe("Content checks", () => {
     it("Table headers", () => {
-      const headers = wrapper.find("th");
       const keys = Object.keys(data[0]);
       headers.forEach((th, idx) => {
         expect(th.find("button").find("div").at(1).text()).toEqual(
@@ -81,7 +79,6 @@ describe("Table", () => {
       });
     });
     it("Rows content", () => {
-      const rows = wrapper.find("tbody").find("tr");
       rows.forEach((tr, rowIndex) => {
         const cells = tr.find("td");
         expect(cells).toHaveLength(Object.keys(headerNames).length);
@@ -89,6 +86,40 @@ describe("Table", () => {
         expect(cells.at(1).text()).toEqual(data[rowIndex].price.toString());
         expect(cells.at(2).text()).toEqual(data[rowIndex].assetClass);
       });
+    });
+  });
+  describe("Sorting", () => {
+    it("By Ticker alphabetically", () => {
+      const tickerSortButton = wrapper.find("th").find("button").at(0);
+      tickerSortButton.find("button").simulate("click");
+      const sortedRows = wrapper.find("tbody").find("tr");
+
+      const firstRowCells = sortedRows.at(0).find("td");
+      const lastRowCells = sortedRows.at(5).find("td");
+      expect(firstRowCells.at(0).text()).toEqual("DEUX");
+      expect(lastRowCells.at(0).text()).toEqual("UNO");
+    });
+    it("By Price descending", () => {
+      const priceSortButton = wrapper.find("th").find("button").at(1);
+      priceSortButton.find("button").simulate("click");
+      const sortedRows = wrapper.find("tbody").find("tr");
+
+      const firstRowCells = sortedRows.at(0).find("td");
+      const lastRowCells = sortedRows.at(5).find("td");
+      expect(firstRowCells.at(1).text()).toEqual("3333.33");
+      expect(lastRowCells.at(1).text()).toEqual("-2222.22");
+    });
+    it("By Asset Class", () => {
+      const priceSortButton = wrapper.find("th").find("button").at(2);
+      priceSortButton.find("button").simulate("click");
+      const sortedRows = wrapper.find("tbody").find("tr");
+
+      const firstRowCells = sortedRows.at(0).find("td");
+      const thirdRowCells = sortedRows.at(2).find("td");
+      const lastRowCells = sortedRows.at(5).find("td");
+      expect(firstRowCells.at(2).text()).toEqual("Equities");
+      expect(thirdRowCells.at(2).text()).toEqual("Macro");
+      expect(lastRowCells.at(2).text()).toEqual("Credit");
     });
   });
 });
